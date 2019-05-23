@@ -8,7 +8,8 @@ import java.util.Set;
 /**
  * Created by Doa on 23-5-2019.
  */
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+public class OwnerServiceMap extends AbstractMapService<Owner, Long>
+        implements CrudService<Owner, Long> {
 
     @Override
     public Set<Owner> findAll() {
