@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * Created by Doa on 23-5-2019.
  */
-public interface CrudService <T, ID> {
+public interface CrudService<T, ID> {
 
     Set<T> findAll();
 

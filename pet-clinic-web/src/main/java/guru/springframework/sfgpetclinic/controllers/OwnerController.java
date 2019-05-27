@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Created by Doa on 23-5-2019.
  */
-@RequestMapping("owners")
+@RequestMapping("/owners")
 @Controller
 public class OwnerController {
 
