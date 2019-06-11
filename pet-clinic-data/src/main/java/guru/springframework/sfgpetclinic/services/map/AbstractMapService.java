@@ -19,9 +19,6 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
         return map.get(id);
     }
 
-
-    // Check if this still works with your Faker methods. Else overload save method
-
     T save(T object) {
         if(object != null) {
             if(object.getId() == null){
@@ -29,7 +26,7 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
             }
             map.put(object.getId(), object);
         } else {
-            throw new RuntimeException("Oject cannot be null");
+            throw new RuntimeException("Object cannot be null");
         }
 
 
