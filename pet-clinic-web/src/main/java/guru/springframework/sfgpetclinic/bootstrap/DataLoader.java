@@ -1,12 +1,10 @@
 package guru.springframework.sfgpetclinic.bootstrap;
 
 import com.github.javafaker.Faker;
-import guru.springframework.sfgpetclinic.model.Owner;
-import guru.springframework.sfgpetclinic.model.Pet;
-import guru.springframework.sfgpetclinic.model.PetType;
-import guru.springframework.sfgpetclinic.model.Vet;
+import guru.springframework.sfgpetclinic.model.*;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import guru.springframework.sfgpetclinic.services.PetTypeService;
+import guru.springframework.sfgpetclinic.services.SpecialityService;
 import guru.springframework.sfgpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -23,21 +21,31 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
     private final Faker faker;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, Faker faker) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, Faker faker) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
         this.faker = faker;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
+        int count = petTypeService.findAll().size();
+
+        if (count == 0) { // check if our persistency layer already has data in it
+            loadData(); // no -> populate it with our data
+        }
+    }
+
+    private void loadData() {
         PetType dog = new PetType();
         dog.setName("Dog");
-        PetType savedDogPetType = petTypeService.save(dog);
+        PetType savedDogPetType = petTypeService.save(dog); // persist it to our map using the service
 
         PetType cat = new PetType();
         dog.setName("Cat");
@@ -48,6 +56,22 @@ public class DataLoader implements CommandLineRunner {
         PetType savedRabbitPetType = petTypeService.save(rabbit);
 
         System.out.println("Loaded PetTypes....");
+
+        Speciality radiology = new Speciality();
+        radiology.setDescription("Radiology");
+        Speciality savedRadiology = specialityService.save(radiology);
+
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+        Speciality savedSurgery = specialityService.save(surgery);
+
+
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
+        Speciality savedDentistry = specialityService.save(dentistry);
+
+        System.out.println("Loaded Specialities....");
+
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
@@ -86,28 +110,30 @@ public class DataLoader implements CommandLineRunner {
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
+        vet1.getSpecialities().add(savedRadiology);
 
         vetService.save(vet1);
 
         Vet vet2 = new Vet();
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
+        vet2.getSpecialities().add(savedSurgery);
 
         vetService.save(vet2);
 
         System.out.println("Loaded Vets....");
 
-       // add 4 more vets and owners using the Faker class
+        // add 4 more vets and owners using the Faker class
 
         LongStream.rangeClosed(3, 6)
                 .mapToObj(this::createFakeOwner)
                 .forEach(ownerService::save);
-        System.out.println("Loaded owners...");
+        System.out.println("Loaded additional owners...");
 
         LongStream.rangeClosed(3, 6)
                 .mapToObj(this::createFakeVet)
                 .forEach(vetService::save);
-        System.out.println("Loaded vets...");
+        System.out.println("Loaded additional vets...");
     }
 
     private Vet createFakeVet(Long id) {

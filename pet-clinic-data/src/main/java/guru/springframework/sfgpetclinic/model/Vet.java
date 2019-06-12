@@ -8,13 +8,13 @@ import java.util.Set;
  */
 public class Vet extends Person {
 
-    private Set<Specialty> specialties = new HashSet<>(); // good to initialize so we can add entities to it, without creating it first
+    private Set<Speciality> specialties = new HashSet<>(); // good to initialize so we can add entities to it, without creating it first
 
-    public Set<Specialty> getSpecialties() {
+    public Set<Speciality> getSpecialities() {
         return specialties;
     }
 
-    public void setSpecialties(Set<Specialty> specialties) {
+    public void setSpecialties(Set<Speciality> specialties) {
         this.specialties = specialties;
     }
 }
