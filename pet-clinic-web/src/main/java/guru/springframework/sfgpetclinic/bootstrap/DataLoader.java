@@ -2,8 +2,10 @@ package guru.springframework.sfgpetclinic.bootstrap;
 
 import com.github.javafaker.Faker;
 import guru.springframework.sfgpetclinic.model.Owner;
+import guru.springframework.sfgpetclinic.model.PetType;
 import guru.springframework.sfgpetclinic.model.Vet;
 import guru.springframework.sfgpetclinic.services.OwnerService;
+import guru.springframework.sfgpetclinic.services.PetTypeService;
 import guru.springframework.sfgpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,16 +20,32 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
     private final Faker faker;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, Faker faker) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, Faker faker) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
         this.faker = faker;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        PetType dog = new PetType();
+        dog.setName("Dog");
+        PetType savedDogPetType = petTypeService.save(dog);
+
+        PetType cat = new PetType();
+        dog.setName("Cat");
+        PetType savedCatPetType = petTypeService.save(cat);
+
+        PetType rabbit = new PetType();
+        dog.setName("Rabbit");
+        PetType savedRabbitPetType = petTypeService.save(rabbit);
+
+        System.out.println("Loaded PetTypes....");
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
