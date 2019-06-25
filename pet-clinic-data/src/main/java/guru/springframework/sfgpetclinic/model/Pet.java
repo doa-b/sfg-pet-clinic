@@ -2,6 +2,8 @@ package guru.springframework.sfgpetclinic.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Doa on 21-5-2019.
@@ -20,12 +22,16 @@ public class Pet extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;
+
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
     public String getName() {
         return name;
     }
+
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "pet")
+    private Set<Visit> visit = new HashSet<>();
 
     public void setName(String name) {
         this.name = name;
@@ -53,5 +59,13 @@ public class Pet extends BaseEntity {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Set<Visit> getVisit() {
+        return visit;
+    }
+
+    public void setVisit(Set<Visit> visit) {
+        this.visit = visit;
     }
 }
