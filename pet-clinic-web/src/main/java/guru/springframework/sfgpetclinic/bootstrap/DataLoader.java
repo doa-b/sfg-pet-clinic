@@ -49,11 +49,11 @@ public class DataLoader implements CommandLineRunner {
         PetType savedDogPetType = petTypeService.save(dog); // persist it to our map using the service
 
         PetType cat = new PetType();
-        dog.setName("Cat");
+        cat.setName("Cat");
         PetType savedCatPetType = petTypeService.save(cat);
 
         PetType rabbit = new PetType();
-        dog.setName("Rabbit");
+        rabbit.setName("Rabbit");
         PetType savedRabbitPetType = petTypeService.save(rabbit);
 
         System.out.println("Loaded PetTypes....");
@@ -81,8 +81,6 @@ public class DataLoader implements CommandLineRunner {
         owner1.setCity("Miami");
         owner1.setTelephone("123456789");
 
-        ownerService.save(owner1);
-
         Pet mikesPet = new Pet();
         mikesPet.setPetType(savedDogPetType);
         mikesPet.setOwner(owner1);
@@ -90,6 +88,7 @@ public class DataLoader implements CommandLineRunner {
         mikesPet.setBirthDate(LocalDate.now());
         owner1.getPets().add(mikesPet);
 
+        ownerService.save(owner1);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Fiona");
@@ -166,7 +165,7 @@ public class DataLoader implements CommandLineRunner {
         owner.setLastName(faker.name().lastName());
         owner.setAddress(faker.address().streetName());
         owner.setCity(faker.address().cityName());
-        owner.setTelephone(faker.phoneNumber().toString());
+        owner.setTelephone(faker.phoneNumber().phoneNumber());
 
         System.out.println(owner.getFirstName());
 

@@ -12,7 +12,7 @@ import java.util.Set;
 public class Vet extends Person {
 
     @ManyToMany(fetch = FetchType.EAGER) // default for many to many is lazy
-    @JoinTable(name = "vet_specialies", joinColumns = @JoinColumn(name = "vet_id"), // unidirectional, so no need to specify in Speciality class
+    @JoinTable(name = "vet_specialities", joinColumns = @JoinColumn(name = "vet_id"), // unidirectional, so no need to specify in Speciality class
     inverseJoinColumns = @JoinColumn(name = "speciality_id"))
     private Set<Speciality> specialties = new HashSet<>(); // good to initialize so we can add entities to it, without creating it first
 
