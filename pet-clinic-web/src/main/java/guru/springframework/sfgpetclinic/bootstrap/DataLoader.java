@@ -152,8 +152,6 @@ public class DataLoader implements CommandLineRunner {
         vet.setLastName(faker.name().lastName());
 
         System.out.println(vet.getFirstName());
-
-
         return vet;
     }
 
