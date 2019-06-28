@@ -1,5 +1,10 @@
 package guru.springframework.sfgpetclinic.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +14,10 @@ import java.io.Serializable;
 /**
  * Created by Doa on 21-5-2019.
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 public class BaseEntity implements Serializable {
     //typically used to manage ID and create/update timestamp fields
@@ -18,11 +27,4 @@ public class BaseEntity implements Serializable {
                                                         // this setting retrieves that ID for us
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
