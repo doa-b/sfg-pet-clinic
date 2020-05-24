@@ -4,8 +4,8 @@ orbs:
   maven: circleci/maven@0.0.12
 
 workflows:
-  - run: mvn install -DskipTests
+  steps:
+    - run: mvn install -DskipTests
   maven_test:
     jobs:
-
       - maven/test # checkout, build, test, and upload test results
