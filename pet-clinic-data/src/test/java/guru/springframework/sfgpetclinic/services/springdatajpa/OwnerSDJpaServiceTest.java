@@ -63,6 +63,8 @@ class OwnerSDJpaServiceTest {
 
     @Test
     void findAll() {
+
+        // Create a set of 3 owners
         Set<Owner> returnOwnerSet = new HashSet<>();
         returnOwnerSet.add(Owner.builder().id(1L).build());
         returnOwnerSet.add(Owner.builder().id(2L).build());
@@ -71,7 +73,7 @@ class OwnerSDJpaServiceTest {
         // when findAll() is called, return that ownerSet
         when(ownerRepository.findAll()).thenReturn(returnOwnerSet);
 
-        // Call the service that implements our mock repository from above
+        // Call the service that implements our mock repository from above & store result
         Set<Owner> owners = service.findAll();
 
         // check if we get a set of 2 owners
@@ -85,6 +87,7 @@ class OwnerSDJpaServiceTest {
 
         Owner owner = service.findById(2L);
 
+        // check if we get an owner back
         assertNotNull(owner);
     }
 
@@ -94,6 +97,7 @@ class OwnerSDJpaServiceTest {
 
         Owner owner = service.findById(2L);
 
+        // check if we get Null back
         assertNull(owner);
     }
 
